@@ -19,7 +19,7 @@ const Hero = () => {
           {t.hero.description}
         </p>
         <Link href="#products">
-          <button className="hover:bg-gradient-to-r hover:from-[#EF2D56] bg-[#EF2D56] hover:to-[#FF8DA9] text-white font-semibold py-3 px-8 rounded-full xl:text-2xl 2xl:text-3xl">
+          <button className="cursor-pointer hover:bg-gradient-to-r hover:from-[#EF2D56] bg-[#EF2D56] hover:to-[#FF8DA9] text-white font-semibold py-3 px-8 rounded-full xl:text-2xl 2xl:text-3xl">
             {t.hero.button}
           </button>
         </Link>
