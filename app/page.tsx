@@ -1,30 +1,19 @@
-"use client";
+import Hero from './components/hero';
+import About from './components/about';
+import Products from './components/products';
+import Contact from './components/contact';
+import Recipes from './components/recipes';
+import Gallery from './components/gallery';
 
-import React from "react";
-import styles from "./page.module.css";
-
-const Home = () => {
-  const categories = {
-    "Basic chat": "basic-chat",
-    "Function calling": "function-calling",
-    "File search": "file-search",
-    All: "all",
-  };
-
+export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.title}>
-        Explore sample apps built with Assistants API
-      </div>
-      <div className={styles.container}>
-        {Object.entries(categories).map(([name, url]) => (
-          <a key={name} className={styles.category} href={`/examples/${url}`}>
-            {name}
-          </a>
-        ))}
-      </div>
+    <main>
+      <Hero />
+      <About />
+      <Products />
+      <Recipes />
+      <Gallery />
+      <Contact />
     </main>
   );
-};
-
-export default Home;
+}

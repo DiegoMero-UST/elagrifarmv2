@@ -1,23 +1,47 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Warnings from "./components/warnings";
 import { assistantId } from "./assistant-config";
-const inter = Inter({ subsets: ["latin"] });
+import type { Metadata } from "next";
+import { Crimson_Text } from "next/font/google";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import Navbar from "./components/navbar";
+import Footer from "./components/footer";
+import Chat from "./components/chat";
 
-export const metadata = {
-  title: "Assistants API Quickstart",
-  description: "A quickstart template using the Assistants API with OpenAI",
-  icons: {
-    icon: "/openai.svg",
-  },
+const crimsonText = Crimson_Text({
+  weight: "400",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Elagri Farm",
+  description: "Fresh and quality fruits directly from our farm. We offer a variety of agricultural products, grown sustainably. Enjoy the freshness and taste of nature.",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        {assistantId ? children : <Warnings />}
-        <img className="logo" src="/openai.svg" alt="OpenAI Logo" />
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <link 
+          rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+        />
+      </head>
+      <body className={`${crimsonText.className} antialiased`}>
+        {assistantId ? (
+          <LanguageProvider>
+            <Navbar />
+            {children}
+            <Footer />
+            <Chat />
+          </LanguageProvider>
+        ) : (
+          <Warnings />
+        )}
       </body>
     </html>
   );
