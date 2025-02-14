@@ -1,15 +1,20 @@
 import { openai } from "@/app/openai";
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-type Params = { threadId: string };
+// Define el tipo correcto para los params
+type RouteParams = {
+  params: {
+    threadId: string;
+  };
+};
 
 // Send a new message to a thread
 export async function POST(
   request: NextRequest,
-  context: { params: Params }
+  { params }: RouteParams
 ) {
   try {
-    const { threadId } = context.params;
+    const { threadId } = params;
     const { runId, toolCallOutputs } = await request.json();
 
     const stream = openai.beta.threads.runs.submitToolOutputsStream(
@@ -21,8 +26,8 @@ export async function POST(
 
     return new Response(stream.toReadableStream());
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: 'Internal Server Error' }),
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
       { status: 500 }
     );
   }
