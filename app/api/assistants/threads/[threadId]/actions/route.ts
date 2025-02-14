@@ -1,17 +1,10 @@
 import { openai } from "@/app/openai";
 import { NextRequest, NextResponse } from 'next/server';
 
-// Define el tipo correcto para los params
-type RouteParams = {
-  params: {
-    threadId: string;
-  };
-};
-
 // Send a new message to a thread
 export async function POST(
   request: NextRequest,
-  { params }: RouteParams
+  { params }: { params: { threadId: string } }
 ) {
   try {
     const { threadId } = params;
@@ -26,8 +19,8 @@ export async function POST(
 
     return new Response(stream.toReadableStream());
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
+    return new Response(
+      JSON.stringify({ error: 'Internal Server Error' }),
       { status: 500 }
     );
   }
